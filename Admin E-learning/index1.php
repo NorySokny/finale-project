@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Mirrored from edumin.dexignlab.com/xhtml/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 29 Jan 2021 06:53:53 GMT -->
 <head>
 	
 	<meta charset="utf-8">
@@ -314,7 +313,8 @@
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Id</th>
+                                                <th scope="col">No.</th>
+                                                <th scope="col">User_Id</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Email</th>
                                                 <th scope="col">Action</th>
@@ -322,8 +322,10 @@
                                         </thead>
                                         <tbody>
                                         <?php
+                                        $i=0;
                                             foreach($result as $val){
                                                 echo '<tr>
+                                                    <td>'.++$i.'</td>
                                                    <td>'.$val[0].'</td>
                                                    <td>'.$val[1]." ".$val[2].'</td>
                                                    <td>'.$val[3].'</td>
@@ -435,7 +437,7 @@
     <script src="js/dashboard/dashboard-2.js"></script>
 	
 	<!-- Svganimation scripts -->
-    <!-- <script src="vendor/svganimation/vivus.min.js"></script>
-    <script src="vendor/svganimation/svg.animation.js"></script>	 -->
+    <!-- <script src="vendor/svganimation/vivus.min.js"></script>	 -->
+    <script src="vendor/svganimation/svg.animation.js"></script>
 </body>
 </html>

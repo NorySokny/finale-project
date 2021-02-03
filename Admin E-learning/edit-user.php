@@ -22,18 +22,58 @@
 
 <body>
 
-    <!--?php 
-        $id=$_GET['id']??$_POST['id'];
+    <?php 
+        $id=$_GET['id']??$_POST['id']??"";
+        $redirect='';
+        if($_SERVER['REQUEST_METHOD']=='GET'&&isset($_GET['id'])){
+            $redirect="all-users.php";
+        }
         if($id>0){
-            $data_sel="select fname,lname,email,`password`,Cpassword,birthday,gender,mobile where id=".$id;
+            $data_sel="select * from users where id=".$id;
             $data_get=$conn->query($data_sel)->fetch_row();
             if($_SERVER['REQUEST_METHOD']=="POST"){
-                $fname=$_POST['']
+                $id=stripslashes(trim($_POST['id']));
+                $fname=stripslashes(trim($_POST['fname']));
+                $lname=stripslashes(trim($_POST['lname']));
+                $email=stripslashes(trim($_POST['email']));
+                $password=stripslashes(trim($_POST['password']));
+                $cpassword=stripslashes(trim($_POST['cpassword']));
+                $birthday=stripslashes(trim($_POST['birthday']));
+                $gender=stripslashes(trim($_POST['gender']));
+                $mobile=stripslashes(trim($_POST['mobile']));
+
+                //     $check="select id,email from users where email=".$email;
+                //     $all_email=$conn->query($check)->fetch_all();
+                //     if($all_email===TRUE&&count($all_email)==1){
+                //         $false=true;
+                //         if($id!=$all_email['0']){
+                //             $alert_message='<div class="message_alert"><strong>Error:</strong>email already use by other user.</div>';  
+                //             $fales=fales;
+                //         }     
+                //     }elseif($all_email===TRUE){
+                //         $alert_message='<div class="message_alert"><strong>Error:</strong>email already use by other user.</div>';
+                //         $false=fales;
+                //         // foreach($all_email as $data){
+                //         //    if($data['1']==$d)
+                //     }elseif($password!=$cpassword){
+                //         $alert_message='<div class="message_alert">password and confirme password not the same.</div>';
+                //         $false=false;
+                //     }
+                // if($fales){
+                    header('location:all-users.php');
+                    $update="update users set fname='$fname',lname='$lname'
+                            ,email='$email',`password`='$password',Cpassword='$cpassword'
+                            ,birthday='$birthday',gender='$gender',mobile='$mobile' where id=".$id;
+                    $result_update=$conn->query($update);
+                    if($result_update===true){
+                        $alert_message='<div class="message_alert">update not successful.</div>';
+                        header('location:all-users.php');
+                    
+                }
             }
-        }else{
-            // header('location:all-users.php');
         }
-    ?-->
+            //header('location:edit-user.php');
+    ?>
 
 
     <!--**********************************
@@ -44,160 +84,10 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-        <a href="index1.php" class="brand-logo">
-                <img class="logo-abbr" src="images/logo-zvalley.png" alt="">
-                <h1 class="brand-title">ADMIN</h1>
-            </a>
-
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
-            </div>
-        </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
-
-        <!--**********************************
-            Header start
-        ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                        <div class="header-left">
-                            <div class="search_bar dropdown">
-                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
-                                    <i class="mdi mdi-magnify"></i>
-                                </span>
-                                <div class="dropdown-menu p-0 m-0">
-                                    <form>
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown header-profile">
-                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="images/profile/education/pic1.jpg" width="20" alt=""/>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="app-profile.php" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                        <span class="ml-2">Profile </span>
-                                    </a>
-                                    <a href="email-inbox.php" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>
-                                    <a href="page-login.php" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                        <span class="ml-2">Logout </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
+    <?php include 'header.php';?>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
-
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-        <div class="dlabnav">
-            <div class="dlabnav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="index1.php" aria-expanded="false">
-							<i class="la la-home"></i>
-							<span class="nav-text">Dashboard</span>
-						</a>
-                    </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-user"></i>
-							<span class="nav-text">Professors</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-professors.php">All Professor</a></li>
-                            <li><a href="add-professor.php">Add Professor</a></li>
-                            <li><a href="edit-professor.php">Edit Professor</a></li>
-                            <li><a href="professor-profile.php">Professor Profile</a></li>
-                        </ul>
-                    </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                        <i class="la la-users"></i>
-                        <span class="nav-text">Users</span>
-                    </a>
-                    <ul aria-expanded="false">
-                        <li><a href="all-users.php">All Users</a></li>
-                        <li><a href="add-user.php">Add Users</a></li>
-                        <li><a href="edit-user.php">Edit Users</a></li>
-                        <li><a href="about-user.php">About Users</a></li>
-                    </ul>
-                </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-graduation-cap"></i>
-							<span class="nav-text">Courses</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-courses.php">All Courses</a></li>
-                            <li><a href="add-courses.php">Add Courses</a></li>
-                            <li><a href="edit-courses.php">Edit Courses</a></li>
-                            <li><a href="about-courses.php">About Courses</a></li>
-                        </ul>
-                    </li>
-					<!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-book"></i>
-							<span class="nav-text">Library</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-library.html">All Library</a></li>
-                            <li><a href="add-library.html">Add Library</a></li>
-                            <li><a href="edit-library.html">Edit Library</a></li>
-                        </ul>
-                    </li>
-					
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="la la-signal"></i>
-							<span class="nav-text">Charts</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="chart-flot.html">Flot</a></li>
-                            <li><a href="chart-morris.html">Morris</a></li>
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-                        </ul>
-                    </li>
-                    -->
-                    <li class="nav-label">Extra</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-th-list"></i>
-							<span class="nav-text">Pages</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="page-register.php">Register</a></li>
-                            <li><a href="page-login.php">Login</a></li>
-                        </ul>
-                    </li>
-				</ul>
-            </div>
-        </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
-
-		
-		
         <!--**********************************
             Content body start
         ***********************************-->
@@ -227,69 +117,84 @@
 								<h5 class="card-title">Basic Info</h5>
 							</div>
 							<div class="card-body">
-                                <form action="#" method="post">
+                                <form action="edit-user.php" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                           <?php echo @$alert_message;?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+                                                <input type="button" name="search-id-user" class="search-id-user" value="Search ID">
+												<input type="text" class="id-user-edit" id="id-user-edit" value="">
+                                                
+											</div>
+										</div>
+                                    </div>
+                                    <hr size='2px' style="margin-top:-10px;border-color:red;">
 									<div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Search By Id</label>
-												<input type="text" class="form-control" value="">
-											</div>
+												<label class="form-label">Id</label>
+												<input type="text" class="form-control" name="id1" disabled value="<?php echo @$data_get[0]?>">
+                                                <input type="hidden" name="id" value="">
+                                            </div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">First Name</label>
-												<input type="text" class="form-control" value="">
+												<input type="text" class="form-control" name="fname" value="<?php echo @$data_get[1]?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Last Name</label>
-												<input type="text" class="form-control" value="">
+												<input type="text" class="form-control" name="lname" value="<?php echo @$data_get[2]?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Email</label>
-												<input type="text" class="form-control" value="">
+												<input type="text" class="form-control" name="email" value="<?php echo @$data_get[3]?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Password</label>
-												<input type="password" class="form-control" value="">
+												<input type="password" class="form-control" name="password" value="<?php echo @$data_get[4]?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Confirm Password</label>
-												<input type="password" class="form-control" value="">
+												<input type="password" class="form-control" name="cpassword" value="<?php echo @$data_get[5]?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Gender</label>
-												<select class="form-control">
-													<option value="Gender" selected>Gender</option>
-													<option value="Male" >Male</option>
-													<option value="Female">Female</option>
+												<select class="form-control" name="gender">
+													<option value="male" <?php if(strtolower(@$data_get[7])=="male") echo "selected";?>>Male</option>
+													<option value="female" <?php if(strtolower(@$data_get[7])=="female") echo "selected";?>>Female</option>
 												</select>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Mobile Number</label>
-												<input type="text" class="form-control" value="">
+												<input type="text" class="form-control" name="mobile" value="<?php echo @$data_get[8]?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Date of Birth</label>
-												<input name="datepicker" class="datepicker-default form-control" id="datepicker1" value="">
+												<input  type="date" name="birthday" class="form-control" id="birthday" value="<?php echo @$data_get[6]?>">
 											</div>
 										</div>										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<button type="submit" class="btn btn-primary" name="submit">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
+											<button type="reset" class="btn btn-light">Cencel</button>
 										</div>
 									</div>
 								</form>

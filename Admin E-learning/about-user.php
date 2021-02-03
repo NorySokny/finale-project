@@ -312,8 +312,8 @@
                                 <div class="profile-tab">
                                     <div class="custom-tab-1">
                                         <ul class="nav nav-tabs">
-                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link active show">About Me</a></li>
-                                            <li class="nav-item"><a href="#my-posts" data-toggle="tab" class="nav-link">Posts</a></li>
+                                            <li class="nav-item"><a href="#about-me" data-toggle="tab" class="nav-link active show">About <?php echo $datauser[1]." ".$datauser[2];?></a></li>
+                                            <!-- <li class="nav-item"><a href="#my-posts" data-toggle="tab" class="nav-link">Posts</a></li> -->
                                         </ul>
                                         <div class="tab-content">
                                             <div id="about-me" class="tab-pane fade active show">
@@ -372,7 +372,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-											<div id="my-posts" class="tab-pane fade">
+											<!-- <div id="my-posts" class="tab-pane fade">
                                                 <div class="my-post-content pt-3">
                                                     <div class="post-input">
                                                         <textarea name="textarea" id="textarea" cols="30" rows="5" class="form-control bg-transparent" placeholder="Please type what you want...."></textarea> <a href="javascript:void()"><i class="ti-clip"></i> </a>
@@ -418,7 +418,7 @@
                                                     <div class="text-center mb-2"><a href="javascript:void()" class="btn btn-primary">Load More</a>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

@@ -1944,6 +1944,25 @@ pre {
   border: 1px solid #eaeaea;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  #id-user-edit{
+    max-width:250px;
+    padding:8px;
+    outline: none;
+    margin-left:-5px;
+    border: 1px solid grey;
+    border-left: none;
+    padding-left: 15px;
+  }
+  .search-id-user{
+    width:150px;
+    background-color: blue;
+    color:white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 7px;
+    border: none;
+    margin-right: 0px;
+  }
   @media (prefers-reduced-motion: reduce) {
     .form-control {
       transition: none; } }
@@ -9188,7 +9207,7 @@ a {
   z-index: 1;
   position: relative;
   padding: 0rem;
-  background-color: #fff;
+  background-color: #143b64;
   z-index: 3;
   padding-left: 17.1875rem;
   transition: all .2s ease;
